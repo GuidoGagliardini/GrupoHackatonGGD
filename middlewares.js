@@ -12,10 +12,12 @@ securedProductos = (req,res,next) => {
     token = token.replace('Bearer ','');
     const publicKey = fs.readFileSync('./claves/publica.pem');
     let decoded = jwt.verify(token,publicKey);
+    console.log(decoded);
     let id = decoded.id;
     let role= decoded.role;
-    console.log('estoy aca!!!');
-     role == 1 ? next() : res.status(401).json({message : 'unauthorized'});
+
+    console.log('estoy aca!!!' + role);
+     role == "admin" ? next() : res.status(401).json({message : 'unauthorized'});
    // break // return
   } catch(error) {
     console.log(error);
