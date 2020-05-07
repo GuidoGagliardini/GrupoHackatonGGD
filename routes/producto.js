@@ -22,6 +22,32 @@ router.post('/alta', async (req,res,next)=> {
     // la tabla user no existe.
     res.status(500).json({status : false, message : error})
   }
+});
+router.delete('/', async (req,res,next)=> {
+  try {
+
+     
+      let result = await productoModel.deleteProdcuto(req.body.id)
+      // validación por correo
+      res.json({status : true, message : 'producto eliminado correctamente'});
+  } catch(error) {
+    console.log(error);
+    // la tabla user no existe.
+    res.status(500).json({status : false, message : error})
+  }
+});
+router.get('/', async (req,res,next)=>{
+  try{
+    let result =  await  productoModel.consultaProductos();
+    res.json({status: true , data: result});
+
+
+  }
+
+  catch{
+    res.json({status:false , message:"MAL!"})
+  }
+
 })
 
 module.exports = router;

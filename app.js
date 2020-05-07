@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mw = require('./middlewares');
 const dotenv = require('dotenv');
 // CORS Policy
 // valida el token y protege las rutas
@@ -27,32 +28,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const secured = async (req,res,next) => {
-
-  try {
-    // headers : Authorization -> Envio de información sensible del usuario
-    // req.headers.authorization
-    let token = req.headers.authorization; // token que envia el usuario
-    console.log(`Cabeceras : ${token}`);
-    const publicKey = fs.readFileSync('./claves/publica.pem');
-    let decoded = jwt.verify(token,publicKey);
-    console.log(`Decoded : ${decoded}`);
-    next(); // break // return
-  } catch(error) {
-    console.log(error);
-    console.log("Token invalido");
-    res.status(401).json({status : true, message : 'unauthorized'})
-  }
-}
 
 app.use('/', indexRouter);
 app.use('/auth',authRouter);
 app.use('/users',userRouter);
 app.use('/producto', productoRouter);
 // middleware -> funciones de ruta (cargar un archivo si y solo si se verifica la funcion middleware)
-app.use('/panel',secured,panelRouter)
+app.use('/panel' ,mw.securedProductos,panelRouter)
 
-// catch 404 and forward to error handler
+// catch 404 and forward to error handler 
 app.use(function(req, res, next) {
   next(createError(404));
 });

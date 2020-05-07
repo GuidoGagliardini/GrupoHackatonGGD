@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/user', async(req,res,next)=> {
     try {
-        res.json({status : true, message : 'usuario autenticado'})
+        res.json({status : true, message : 'usuario autenticado estas adentro'})
     } catch(error) {
         res.status(500).json({status : false})
     }
