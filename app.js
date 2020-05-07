@@ -14,6 +14,7 @@ var indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 const panelRouter = require('./routes/panel');
+const productoRouter = require('./routes/producto');
 var app = express();
 
 // view engine setup
@@ -47,6 +48,7 @@ const secured = async (req,res,next) => {
 app.use('/', indexRouter);
 app.use('/auth',authRouter);
 app.use('/users',userRouter);
+app.use('/producto', productoRouter);
 // middleware -> funciones de ruta (cargar un archivo si y solo si se verifica la funcion middleware)
 app.use('/panel',secured,panelRouter)
 
