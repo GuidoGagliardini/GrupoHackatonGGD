@@ -17,12 +17,13 @@ securedProductos = (req,res,next) => {
     let role= decoded.role;
 
     console.log('estoy aca!!!' + role);
-     role == "admin" ? next() : res.status(401).json({message : 'unauthorized'});
+     role == "admin"  ? next() : res.status(401).json({message : 'unauthorized'});
    // break // return
   } catch(error) {
     console.log(error);
     res.status(401).json({status : false, message : 'unauthorized'})
   }
 }
+
   
 module.exports = {securedProductos};

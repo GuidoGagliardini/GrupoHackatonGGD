@@ -51,5 +51,6 @@ async function updateProductoById(obj) {
 }
 
 
+
 // getUserByUsernameAndPassword is not a function 
 module.exports = {createProducto,consultaProductos, deleteProdcuto,  updateProductoById}

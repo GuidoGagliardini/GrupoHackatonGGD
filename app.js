@@ -32,9 +32,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/auth',authRouter);
 app.use('/users',userRouter);
-app.use('/producto', productoRouter);
+app.use('/producto',mw.securedProductos, productoRouter);
 // middleware -> funciones de ruta (cargar un archivo si y solo si se verifica la funcion middleware)
-app.use('/panel' ,mw.securedProductos,panelRouter)
+app.use('/panel' ,panelRouter)
 
 // catch 404 and forward to error handler 
 app.use(function(req, res, next) {

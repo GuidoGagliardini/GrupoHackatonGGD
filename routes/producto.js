@@ -48,6 +48,35 @@ router.get('/', async (req,res,next)=>{
     res.json({status:false , message:"MAL!"})
   }
 
+});
+router.put('/update', async (req,res,next)=>{
+  try{
+    let object = {
+      id: req.body.id,
+      nombre: req.body.nombre,
+      descripcion: req.body.descripcion,
+      stock: req.body.stock,
+      estado: req.body.estado,
+      foto: req.body.foto
+  }
+  console.log (req.body);
+  console.log(`${object.id}`); s
+  if (`${object.id}`== req.body.id){
+
+    let result =  await  productoModel.updateProductoById(object);
+    console.log("aca esta result--->" + result);
+    res.json({status: true , message: 'actualizado correctamente '});
+  }else {
+    res.json({status:true ,  message :'el ID no existe'});
+  }
+
+
+  }
+
+  catch{
+    res.json({status:false , message:"MAL!"})
+  }
+
 })
 
 module.exports = router;
